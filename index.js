@@ -356,7 +356,7 @@ This bot is running in test mode. No real money will be charged and no actual se
         : "";
 
       const welcomeMessage = `${testModeWarning}
-🎉 Welcome to VTU Bot! 🎉
+🎉 Welcome to VTU Bot Created by Azeez! 🎉
 
 Hi ${user.first_name}! I'm your personal VTU assistant. Here's what I can help you with:
 
