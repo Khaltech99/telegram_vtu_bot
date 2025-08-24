@@ -8,7 +8,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import crypto from "crypto";
 
-const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, { polling: true });
+const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN);
 const vtpass = new VTPassService();
 const paystack = new PaystackService();
 const db = new DatabaseService();
@@ -1145,5 +1145,18 @@ process.on("SIGINT", () => {
   bot.stopPolling();
   process.exit(0);
 });
+// Telegram Webhook Setup
+const TELEGRAM_WEBHOOK_PATH = `/bot${process.env.TELEGRAM_BOT_TOKEN}`;
+const WEBHOOK_URL = `${process.env.RENDER_EXTERNAL_URL}${TELEGRAM_WEBHOOK_PATH}`;
+
+// Tell Telegram to send updates to our webhook
+await bot.setWebHook(WEBHOOK_URL);
+
+// Handle incoming updates
+app.post(TELEGRAM_WEBHOOK_PATH, (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
+});
+
 
 export { bot, vtpass, paystack, db };
