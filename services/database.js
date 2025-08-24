@@ -1,5 +1,5 @@
 import { databases, DATABASE_ID, COLLECTIONS } from "../config/appwrite.js";
-import { ID, Query } from "appwrite";
+import { ID, Query } from "node-appwrite";
 
 class DatabaseService {
   async createUser(telegramId, firstName, lastName = "", username = "") {
