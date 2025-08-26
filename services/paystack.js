@@ -45,7 +45,7 @@ class PaystackService {
         `${this.baseURL}/transaction/initialize`,
         {
           email,
-          amount: amount * 100, // Convert to kobo
+          amount: amount * 100, // Convert to kobo, paystack  dey expect amount in smallest currency(kobo)
           reference,
           callback_url: this.callbackUrl,
           channels: this.isTestMode
@@ -113,7 +113,7 @@ class PaystackService {
         });
       } catch (error) {
         if (error.response?.status === 429 && attempt < maxRetries - 1) {
-          const delay = Math.pow(2, attempt) * 1000; // Exponential backoff
+          const delay = Math.pow(2, attempt) * 1000; // Exponential backoff leleyi
           console.warn(`Rate limit hit, retrying after ${delay}ms...`);
           await setTimeout(delay);
           attempt++;

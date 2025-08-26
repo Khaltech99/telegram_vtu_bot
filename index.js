@@ -12,10 +12,10 @@ const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN);
 const vtpass = new VTPassService();
 const paystack = new PaystackService();
 const db = new DatabaseService();
-const limiter = new Bottleneck({ minTime: 1000 }); // 1 request/sec
+const limiter = new Bottleneck({ minTime: 1000 });
 
 const userSessions = new Map();
-const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+const SESSION_TIMEOUT = 30 * 60 * 1000; 
 
 const app = express();
 app.use(bodyParser.json({ verify: (req, res, buf) => (req.rawBody = buf) }));
@@ -36,8 +36,7 @@ setInterval(() => {
   }
 }, 60 * 1000);
 
-// ✅ Paystack Webhook Handler
-// ✅ Fixed Paystack Webhook Handler
+
 app.post(
   WEBHOOK_PATH,
   express.raw({ type: "application/json" }),
@@ -132,7 +131,6 @@ app.post(
 );
 
 // Fallback Polling for Test Mode
-// Fallback Polling for Test Mode - FIXED VERSION
 async function pollPaymentStatus(
   reference,
   userId,
@@ -1149,7 +1147,7 @@ process.on("SIGINT", () => {
 const TELEGRAM_WEBHOOK_PATH = `/bot${process.env.TELEGRAM_BOT_TOKEN}`;
 const WEBHOOK_URL = `${process.env.RENDER_EXTERNAL_URL}${TELEGRAM_WEBHOOK_PATH}`;
 
-// Tell Telegram to send updates to our webhook
+//Bro Tell Telegram to send updates to our webhook
 await bot.setWebHook(WEBHOOK_URL);
 
 // Handle incoming updates
